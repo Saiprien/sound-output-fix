@@ -16,7 +16,7 @@ I created Sound Output Fix to work around an issue where Spotify keeps playing t
 
 ![Default buttons in light mode](docs/screenshots/default-light-user.png)
 
-The app includes simple speaker and headphone icons. To use your own images, open **Settings → Devices → Choose…**, select a local PNG or JPG, then click **Apply**. **Reset** restores the default icon. Custom images are saved locally and are not included in the default app package.
+The app includes default speaker and headphone icons. To use your own images, open **Settings → Devices → Choose…**, select a PNG or JPG file, then click **Apply**. **Reset** restores the default icon. Custom images are saved locally and are not included in the default app package.
 
 ## Features
 
@@ -30,7 +30,7 @@ The app includes simple speaker and headphone icons. To use your own images, ope
 ## Getting started
 
 1. Extract the portable ZIP into a folder you intend to keep.
-2. Open **SoundOutputFix.exe**. Keep the included files beside it.
+2. Open **SoundOutputFix.exe**. Keep all included files in the same folder.
 3. In **Settings → Devices**, select your two audio outputs and click **Apply**.
 4. Click a device button to switch outputs.
 
@@ -54,11 +54,11 @@ Windows 10/11 x64, Windows PowerShell 5.1 and .NET Framework 4.x. Extract the ap
 
 During the Spotify restart, the other configured output is temporarily disabled and restored afterwards. Other apps using that output may be affected.
 
-If headphones appear only as an input, check whether their playback device is disabled in Windows. More help is available in [Troubleshooting](docs/TROUBLESHOOTING.md).
+If your headphones appear only as an input device, check whether their playback output is disabled in Windows. For more help, see [Troubleshooting](docs/TROUBLESHOOTING.md).
 
 ## Project information
 
-I develop Sound Output Fix as a source-available application, free for noncommercial use under the [PolyForm Noncommercial License 1.0.0](LICENSE). Commercial use outside the permissions of that license requires a separate agreement with me. See [Licensing](docs/LICENSING.md).
+I developed Sound Output Fix and make it available for noncommercial use under the [PolyForm Noncommercial License 1.0.0](LICENSE). Commercial use that is not permitted by the license requires a separate agreement with me. See [Licensing](docs/LICENSING.md).
 
 For commercial licensing inquiries, contact [ciprian.balaban40@yahoo.com](mailto:ciprian.balaban40@yahoo.com).
 
@@ -66,11 +66,11 @@ Required Notice: Copyright (c) 2026 Saiprien
 
 Sound Output Fix is independent and is not affiliated with Spotify.
 
-[Version history](CHANGELOG.md) · [Third-party notices](THIRD_PARTY_NOTICES.md) · [Licensing status](docs/LICENSING.md) · [Technical documentation](docs/ARCHITECTURE.md)
+[Version history](CHANGELOG.md) · [Third-party notices](THIRD_PARTY_NOTICES.md) · [Licensing](docs/LICENSING.md) · [Technical documentation](docs/ARCHITECTURE.md)
 
 ### Startup after updating
 
-Open the current version, then turn **Start with Windows** off and on in Settings to replace any shortcut pointing to an older folder. Windows startup runs the app in the tray; manual launches open the window.
+Open the current version, then turn **Start with Windows** off and on in Settings to replace any shortcut pointing to an older folder. When Windows starts, the app runs in the system tray without opening a window. Launching it manually opens the window.
 
 ## Build from source
 

@@ -12,9 +12,9 @@ The interface uses Windows Forms. A small C# GUI executable hosts Windows PowerS
 | AudioCore.ps1 / WindowsAudio.cs | Windows audio operations |
 | Startup.ps1 | Current-user startup shortcut |
 
-Documented IMMDeviceEnumerator and IMMDevice interfaces read the default output and endpoint state. Render-device labels are read from Windows endpoint metadata. The isolated IPolicyConfig ABI calls set defaults and endpoint visibility; this interface is undocumented and has no guaranteed compatibility contract.
+Documented IMMDeviceEnumerator and IMMDevice interfaces read the default output and endpoint state. Render-device labels are read from Windows endpoint metadata. Calls through the isolated IPolicyConfig ABI set the default output and endpoint visibility; this interface is undocumented and has no guaranteed compatibility contract.
 
-COM references are released after calls. HRESULT failures are reported. The worker restores the other output in a finally block with up to three retries. Restoration cannot be guaranteed after forced process termination or a system crash.
+COM references are released after calls. HRESULT failures are reported. The worker restores the other output in a finally block, making up to three attempts. Restoration cannot be guaranteed after forced process termination or a system crash.
 
 The window and worker share local result and diagnostic files. A named mutex prevents concurrent instances, including the preceding edition.
 

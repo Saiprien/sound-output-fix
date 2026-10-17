@@ -2,19 +2,19 @@
 
 ## 1.0.0 — Initial public release
 
-- My first public release, combining the features and fixes developed during private testing.
-- Includes configurable audio outputs, Spotify switching workaround, automatic switching, English and Romanian, Light/Dark/System themes, custom names and images, and startup in the system tray.
+- This is my first public release. It includes the features and fixes developed during private testing.
+- Features include configurable audio outputs, a workaround for Spotify output-switching issues, automatic switching, English and Romanian translations, Light, Dark and System themes, custom names and images, and startup in the system tray.
 
 All features and fixes below are included in 1.0.0. I developed and tested them privately before publication.
 
 ### Licensing
 
-- I license Sound Output Fix under PolyForm Noncommercial 1.0.0, with my copyright notice and commercial licensing available by separate agreement.
+- I make Sound Output Fix available under the PolyForm Noncommercial License 1.0.0. My copyright notice must be preserved, and commercial licensing is available through a separate agreement.
 
 ### Final polish
 
 - Reduced the initialization delay before restoring the alternate output from eight to four seconds after Spotify process detection. I tested the shorter delay and confirmed improved switching time on 2026-10-17.
-- Standardized the primary license filename as LICENSE.
+- Renamed the primary license file to LICENSE.
 
 - A startup launch no longer opens the window when another instance is already running.
 
@@ -36,7 +36,7 @@ All features and fixes below are included in 1.0.0. I developed and tested them 
 
 #### Resolved bugs
 
-- Smoothed switching dots with elapsed-time animation, double-buffered drawing and a shorter redraw interval. Deferred endpoint enumeration while the switching worker runs.
+- Smoothed the animated switching dots using elapsed time, double-buffered drawing and a shorter redraw interval. Deferred endpoint enumeration while the switching worker runs.
 
 - Translated display-name presets in Settings while keeping saved preset identifiers compatible across languages.
 - Kept the taskbar icon light when using Light mode, independently of the title-bar icon.
@@ -45,7 +45,7 @@ All features and fixes below are included in 1.0.0. I developed and tested them 
 
 - Clicking the output already selected in Windows no longer restarts Spotify. External Windows output changes still apply the Spotify workaround.
 
-- Fixed a brief Active indication before Switching when selecting an output in Windows. The indicator now shows Switching while confirming and applying the change, then Active after completion.
+- Fixed an issue where Active briefly appeared before Switching after an output was selected in Windows. The indicator now shows Switching while confirming and applying the change, followed by Active when the switch is complete.
 
 ### Windows audio backend
 
@@ -92,7 +92,7 @@ All features and fixes below are included in 1.0.0. I developed and tested them 
 - Used configured names in the window, tray and status messages.
 - Added PNG/JPG image selection, thumbnails and Reset controls.
 - Copied custom images into the application folder and saved device preferences.
-- Filtered audio lists to connected devices, with Show disconnected devices.
+- Filtered device lists to show connected devices by default, with a Show disconnected devices option.
 - Kept the selected output visible if disconnected and replaced the generic original-device label with its actual name.
 - Prevented selection of the same output for both buttons.
 
@@ -105,7 +105,7 @@ All features and fixes below are included in 1.0.0. I developed and tested them 
 
 ### Windows startup
 
-- Added Start with Windows On/Off in Settings.
+- Added an option to enable or disable Start with Windows in Settings.
 - Read the existing startup shortcut state.
 - Later refined startup handling to recognize Windows-disabled entries and launch the executable when available.
 

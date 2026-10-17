@@ -2,9 +2,9 @@
 
 ## A device is missing
 
-Check its connection and enable **Show disconnected devices** in Settings → Devices. A microphone under Input is separate from its headphone playback output.
+Check its connection and enable **Show disconnected devices** in Settings → Devices. A microphone listed under Input is separate from the headphones' playback output.
 
-If needed, press Win + R, enter `mmsys.cpl`, select Playback and display disabled/disconnected devices. Enable the playback device if disabled.
+If needed, press Win + R, enter `mmsys.cpl`, open the Playback tab and show disabled and disconnected devices. Enable the playback device if disabled.
 
 ## Spotify is paused after switching
 
@@ -12,17 +12,17 @@ Press Play. Automatic playback resumption is not guaranteed. The alternate outpu
 
 ## The window disappeared
 
-Closing the window hides it in the tray. Double-click its tray icon to reopen it. Use tray → Exit to close the app fully.
+Closing the window hides it in the tray. Double-click its tray icon to reopen it. Right-click the tray icon and choose Exit to close the app completely.
 
 ## Startup did not work
 
-Check Start with Windows in Settings, the Windows Startup Apps list and the application's folder location. Windows may delay startup applications after sign-in.
+Check the Start with Windows option in Settings, the Startup Apps list in Windows and the location of the application folder. Windows may delay startup applications after sign-in.
 
 Turn startup off before moving the application, then enable it again from the new location.
 
 ## Switching fails
 
-Check that the configured output is connected and enabled. Keep the displayed error and `monitor.log` for investigation. Check diagnostics for personal paths or device information before sharing them.
+Check that the configured output is connected and enabled. Save the displayed error message and the `monitor.log` file for troubleshooting. Check diagnostics for personal paths or device information before sharing them.
 
 Do not forcibly terminate the application during switching: its worker may be restoring a temporarily disabled output.
 
