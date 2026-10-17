@@ -36,6 +36,8 @@ The app includes default speaker and headphone icons. To use your own images, op
 
 If Spotify is running, the app restarts it to apply the change. Once the Spotify process is detected, the app waits 4 seconds before restoring the other output. Total switching time varies by computer. Press **Play** if playback is paused. If Spotify is closed, it stays closed.
 
+**Windows SmartScreen:** The executable is not digitally signed, so Windows may display an unrecognized-app warning. If you trust the download from the [official releases page](https://github.com/Saiprien/sound-output-fix/releases), select **More info → Run anyway**. You do not need to disable Microsoft Defender.
+
 When updating, exit the running version from its tray menu before opening the new version.
 
 During a switch, **Switching…** means Spotify is restarting. **Finishing…** means Spotify has opened and the app is completing restoration of the other output. The yellow outline grows from 1 px during Switching to 2 px during Finishing. **Active ✓** marks completion with a green outline. Clicking the output already active does not restart Spotify.
