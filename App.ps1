@@ -173,6 +173,7 @@ $followOutput.Checked = $true
 $followOutput.Add_CheckedChanged({ $script:lastOutput = $null; $script:outputCandidate = $null })
 $status = New-Object System.Windows.Forms.Label
 $status.SetBounds(20,223,355,45)
+$status.Tag = 'SecondaryText'
 $script:statusKey = 'Ready'
 $script:statusTarget = ''
 $script:rawResult = ''
@@ -256,6 +257,7 @@ function Begin-Switch([string]$target, [switch]$FromWindows) {
     $earItem.Enabled = $false
     Set-Content (Join-Path $root 'result.txt') 'Comutare in curs...'
     $argsText = '-NoProfile -ExecutionPolicy Bypass -File "' + (Join-Path $root 'Switch.ps1') + '" -Target ' + $target
+    if ($script:resumePlayback) { $argsText += ' -ResumePlayback' }
     try {
         $script:worker = Start-Process powershell.exe -ArgumentList $argsText -WindowStyle Hidden -PassThru -ErrorAction Stop
     } catch {

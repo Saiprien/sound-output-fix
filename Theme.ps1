@@ -16,6 +16,11 @@ function Set-ControlTheme($container) {
     }
     foreach ($control in $container.Controls) {
         $control.ForeColor = $script:palette.Text
+        if ($control.Tag -eq 'SecondaryText') {
+            $control.ForeColor = if ($script:resolvedTheme -eq 'dark') { Theme-Color '#ACACAC' } else { Theme-Color '#686868' }
+        } elseif ($control.Tag -eq 'CreatorCredit') {
+            $control.ForeColor = if ($script:resolvedTheme -eq 'dark') { Theme-Color '#888888' } else { Theme-Color '#707070' }
+        }
         $control.BackColor = $script:palette.Background
         if ($control -is [System.Windows.Forms.Button] -or ($control -is [System.Windows.Forms.CheckBox] -and $control.Appearance -eq 'Button')) {
             $control.UseVisualStyleBackColor = $false
@@ -62,5 +67,5 @@ function Apply-Theme {
     Update-DeviceButtons $script:displayActive $script:displaySwitching
 }
 function Save-AppSettings {
-    @{language=$script:language; theme=$script:theme; devices=$script:deviceConfig} | ConvertTo-Json -Depth 5 | Set-Content $script:settingsPath -Encoding UTF8 -ErrorAction Stop
+    @{language=$script:language; theme=$script:theme; resumePlayback=$script:resumePlayback; devices=$script:deviceConfig} | ConvertTo-Json -Depth 5 | Set-Content $script:settingsPath -Encoding UTF8 -ErrorAction Stop
 }

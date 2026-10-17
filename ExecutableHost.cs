@@ -8,7 +8,7 @@ using System.Management.Automation.Runspaces;
 using System.Reflection;
 [assembly: AssemblyTitle("Sound Output Fix")]
 [assembly: AssemblyDescription("Windows audio output switcher for Spotify")]
-[assembly: AssemblyVersion("1.0.1.0")]
+[assembly: AssemblyVersion("1.1.0.0")]
 internal static class ExecutableHost {
     [STAThread]
     private static int Main(string[] args) {

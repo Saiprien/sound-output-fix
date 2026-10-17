@@ -8,7 +8,7 @@ If needed, press Win + R, enter `mmsys.cpl`, open the Playback tab and show disa
 
 ## Spotify is paused after switching
 
-Press Play. Automatic playback resumption is not guaranteed. The alternate output is restored after a four-second initialization delay once the Spotify process is detected. Overall timing varies by computer; process detection does not guarantee playback is ready.
+Press Play if needed. Automatic resumption requires an accessible Spotify Windows media session that was playing before switching. If the session is unavailable, the app skips automatic playback. The alternate output is restored after a four-second initialization delay once the Spotify process is detected. Overall timing varies by computer; process detection does not guarantee playback is ready.
 
 ## The window disappeared
 

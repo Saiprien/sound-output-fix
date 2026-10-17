@@ -1,5 +1,18 @@
 ﻿# Changelog
 
+## 1.1.0
+
+### Added
+- Optional automatic playback resumption after switching devices. Spotify resumes only if it was playing before the switch; otherwise, it remains paused. The option is disabled by default.
+- Russian and Simplified Chinese translations.
+- Added credits in Settings.
+
+### Improved
+- Clearer wording and tighter spacing for the playback-resumption option.
+
+### Fixed
+- Secondary status text now retains its muted color when the window is reopened, in both Light and Dark themes.
+
 ## 1.0.1
 
 - Fixed startup error `0x80131515` when .NET Framework blocks downloaded helper libraries. The app now compiles the bundled source when this specific error occurs.

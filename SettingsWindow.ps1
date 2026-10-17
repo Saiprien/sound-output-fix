@@ -24,11 +24,21 @@
     $languageChoice.SetBounds(130,18,300,32)
     [void]$languageChoice.Items.Add('English')
     [void]$languageChoice.Items.Add(('Rom' + [char]0x00E2 + 'n' + [char]0x0103))
-    $languageChoice.SelectedIndex = if ($script:language -eq 'en') { 0 } else { 1 }
+    [void]$languageChoice.Items.Add('Русский')
+    [void]$languageChoice.Items.Add('简体中文')
+    $languageChoice.SelectedIndex = @('en','ro','ru','zh-CN').IndexOf($script:language)
     $closeButton = New-Object SoftButton
     $closeButton.SetBounds(420,478,90,30)
     $closeButton.Text = T 'Close'
     $closeButton.Add_Click({ $dialog.Close() })
+    $creditLabel = New-Object System.Windows.Forms.Label
+    $creditLabel.SetBounds(24,478,260,30)
+    $creditLabel.Text = 'Saiprien MMXXVI'
+    $creditLabel.TextAlign = 'MiddleLeft'
+    $creditLabel.Tag = 'CreatorCredit'
+    $creditFont = New-Object System.Drawing.Font($script:uiFont,9,[System.Drawing.FontStyle]::Italic)
+    $creditLabel.Font = $creditFont
+    $dialog.Controls.Add($creditLabel)
     $startupLabel = New-Object System.Windows.Forms.Label
     $startupLabel.SetBounds(20,68,290,28)
     $startupLabel.Text = T 'Startup'
@@ -57,6 +67,24 @@
     $themeChoice.SetBounds(130,112,300,32)
     foreach ($key in @('Light','Dark','System')) { [void]$themeChoice.Items.Add((T $key)) }
     $themeChoice.SelectedIndex = @('light','dark','system').IndexOf($script:theme)
+    $resumeChoice = New-Object System.Windows.Forms.CheckBox
+    $resumeChoice.SetBounds(20,162,470,38)
+    $resumeChoice.Text = T 'ResumePlayback'
+    $resumeChoice.Checked = $script:resumePlayback
+    $resumeChoice.Add_CheckedChanged({
+        $previous = $script:resumePlayback
+        $script:resumePlayback = $resumeChoice.Checked
+        try { Save-AppSettings } catch {
+            $script:resumePlayback = $previous
+            [void][System.Windows.Forms.MessageBox]::Show($_.Exception.Message,(T 'Settings'))
+        }
+    })
+    $generalTab.Controls.Add($resumeChoice)
+    $resumeHint = New-Object System.Windows.Forms.Label
+    $resumeHint.SetBounds(40,197,450,38)
+    $resumeHint.Tag = 'SecondaryText'
+    $resumeHint.Text = T 'ResumePlaybackHint'
+    $generalTab.Controls.Add($resumeHint)
     $themeChoice.Add_SelectedIndexChanged({
         if ($script:refreshingThemeChoice) { return }
         $script:theme = @('light','dark','system')[$themeChoice.SelectedIndex]
@@ -65,7 +93,7 @@
         Set-ControlTheme $dialog
     })
     $languageChoice.Add_SelectedIndexChanged({
-        $script:language = if ($languageChoice.SelectedIndex -eq 0) { 'en' } else { 'ro' }
+        $script:language = @('en','ro','ru','zh-CN')[$languageChoice.SelectedIndex]
         try {
             Save-AppSettings
         } catch {
@@ -75,6 +103,8 @@
         $dialog.Text = T 'Settings'
         $generalTab.Text = T 'General'; $devicesTab.Text = T 'Devices'
         $languageLabel.Text = T 'Language'
+        $resumeChoice.Text = T 'ResumePlayback'
+        $resumeHint.Text = T 'ResumePlaybackHint'
         $closeButton.Text = T 'Close'
         $themeLabel.Text = T 'Theme'
         $script:refreshingThemeChoice = $true
@@ -102,5 +132,6 @@
     try { [void]$dialog.ShowDialog($form) } finally {
         foreach ($editor in $script:deviceEditors.Values) { if ($editor.preview.Image) { $editor.preview.Image.Dispose(); $editor.preview.Image = $null } }
         $dialog.Dispose()
+        $creditFont.Dispose()
     }
 })

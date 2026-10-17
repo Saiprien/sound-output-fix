@@ -1,5 +1,6 @@
-﻿param([ValidateSet('Speakers','EarPods')][string]$Target, [switch]$Check)
+﻿param([ValidateSet('Speakers','EarPods')][string]$Target, [switch]$Check, [switch]$ResumePlayback)
 . "$PSScriptRoot\AudioCore.ps1"
+. "$PSScriptRoot\SpotifyPlayback.ps1"
 $ear = Get-ConfiguredEndpoint 'EarPods'
 $speaker = Get-ConfiguredEndpoint 'Speakers'
 if ($Target -eq 'EarPods') { $selected = $ear; $other = $speaker } else { $selected = $speaker; $other = $ear }
@@ -28,6 +29,7 @@ try {
     if (($selected.State -band 1) -eq 0) { throw "Dispozitivul $Target nu este activ. Conecteaza-l / activeaza-l." }
     if ((Get-AudioState $selected.Id) -ne 'Active') { throw "Dispozitivul $Target nu este activ. Conecteaza-l / activeaza-l." }
     $spotify = @(Get-Process Spotify -ErrorAction SilentlyContinue)
+    $playback = if ($ResumePlayback -and $spotify.Count -gt 0) { Get-SpotifyPlaybackSnapshot } else { $null }
     $spotifyPath = $spotify | ForEach-Object { try { $_.Path } catch {} } | Where-Object { $_ -and (Test-Path $_) } | Select-Object -First 1
     Audio-Command '/SetDefault' $selected.Id 'all'
     if ($spotify.Count -gt 0) {
@@ -47,7 +49,12 @@ try {
         while (!(Get-Process Spotify -ErrorAction SilentlyContinue) -and (Get-Date) -lt $deadline) { Start-Sleep -Seconds 1 }
         if (!(Get-Process Spotify -ErrorAction SilentlyContinue)) { throw 'Spotify nu a pornit.' }
         Publish-SwitchPhase 'Finishing'
-        Start-Sleep -Seconds 4
+        $finishing = [System.Diagnostics.Stopwatch]::StartNew()
+        $resumeHandled = !$playback -or !$playback.WasPlaying
+        while ($finishing.Elapsed.TotalSeconds -lt 4) {
+            if (!$resumeHandled) { $resumeHandled = Resume-SpotifyPlayback $playback }
+            Start-Sleep -Milliseconds 250
+        }
     }
     Set-Content $result "OK: $Target. Apasa Play daca melodia este oprita."
     Log "Comutare la $Target. Spotify deschis: $($spotify.Count -gt 0)."

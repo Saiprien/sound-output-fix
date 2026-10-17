@@ -2,9 +2,9 @@
 
 I created Sound Output Fix to work around an issue where Spotify keeps playing through the previous audio output after switching devices in Windows.
 
-**Windows 10/11 · 64-bit · Version 1.0.1**
+**Windows 10/11 · 64-bit · Version 1.1.0**
 
-[Download v1.0.1](https://github.com/Saiprien/sound-output-fix/releases/tag/v1.0.1) · [Report an issue](https://github.com/Saiprien/sound-output-fix/issues)
+[Download v1.1.0](https://github.com/Saiprien/sound-output-fix/releases/tag/v1.1.0) · [Report an issue](https://github.com/Saiprien/sound-output-fix/issues)
 
 ### Default appearance
 
@@ -24,7 +24,7 @@ The app includes default speaker and headphone icons. To use your own images, op
 - Follow output changes made in Windows or switch automatically when headphones connect.
 - See the active device in the window and tray menu.
 - Customize button names and images.
-- Choose Light, Dark or System theme, and English or Romanian.
+- Choose Light, Dark or System theme, and English, Romanian, Russian or Simplified Chinese.
 - Optionally start with Windows.
 
 ## Getting started
@@ -34,7 +34,7 @@ The app includes default speaker and headphone icons. To use your own images, op
 3. In **Settings → Devices**, select your two audio outputs and click **Apply**.
 4. Click a device button to switch outputs.
 
-If Spotify is running, the app restarts it to apply the change. Once the Spotify process is detected, the app waits 4 seconds before restoring the other output. Total switching time varies by computer. Press **Play** if playback is paused. If Spotify is closed, it stays closed.
+If Spotify is running, the app restarts it to apply the change. Once the Spotify process is detected, the app waits 4 seconds before restoring the other output. Total switching time varies by computer. Enable **Automatically resume playback after switching devices** in **Settings → General** to use automatic resumption (off by default). With this option enabled, the app attempts to resume Spotify only if its Windows media session reported that it was playing before the switch. If Spotify was paused, closed, or its state could not be read, no Play command is sent. Press **Play** manually if automatic resumption is unavailable. If Spotify is closed, it stays closed.
 
 **Windows SmartScreen:** The executable is not digitally signed, so Windows may display an unrecognized-app warning. If you trust the download from the [official releases page](https://github.com/Saiprien/sound-output-fix/releases), select **More info → Run anyway**. You do not need to disable Microsoft Defender.
 
@@ -73,7 +73,3 @@ Sound Output Fix is independent and is not affiliated with Spotify.
 ### Startup after updating
 
 Open the current version, then turn **Start with Windows** off and on in Settings to replace any shortcut pointing to an older folder. When Windows starts, the app runs in the system tray without opening a window. Launching it manually opens the window.
-
-## Build from source
-
-Run `powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\Build.ps1` on Windows x64 with Windows PowerShell 5.1 and .NET Framework 4.x. Then launch `SoundOutputFix.exe`. Scripts can also be launched with `powershell.exe -STA -NoProfile -ExecutionPolicy Bypass -File .\Launch.ps1`.
