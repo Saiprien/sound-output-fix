@@ -2,9 +2,9 @@
 
 I created Sound Output Fix to work around an issue where Spotify keeps playing through the previous audio output after switching devices in Windows.
 
-**Windows 10/11 · 64-bit · Version 1.0.0**
+**Windows 10/11 · 64-bit · Version 1.0.1**
 
-[Download v1.0.0](https://github.com/Saiprien/sound-output-fix/releases/tag/v1.0.0) · [Report an issue](https://github.com/Saiprien/sound-output-fix/issues)
+[Download v1.0.1](https://github.com/Saiprien/sound-output-fix/releases/tag/v1.0.1) · [Report an issue](https://github.com/Saiprien/sound-output-fix/issues)
 
 ### Default appearance
 

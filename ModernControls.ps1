@@ -1,8 +1,13 @@
 ﻿$controlsLibrary = Join-Path $PSScriptRoot 'ModernControls.dll'
 if (Test-Path $controlsLibrary) {
     Add-Type -AssemblyName System.Windows.Forms,System.Drawing
-    Add-Type -Path $controlsLibrary
-    return
+    try {
+        Add-Type -Path $controlsLibrary -ErrorAction Stop
+        return
+    } catch {
+        if (!(Test-BlockedAssembly $_)) { throw }
+        # Continue with the bundled control source when .NET blocks the downloaded DLL.
+    }
 }
 Add-Type -ReferencedAssemblies System.Windows.Forms,System.Drawing @'
 using System.Drawing;

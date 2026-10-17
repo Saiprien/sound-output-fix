@@ -38,3 +38,7 @@ Do not forcibly terminate the application during switching: its worker may be re
 | `show.flag` / `stop.flag` | Instance coordination |
 
 These files are stored in the application folder. The app does not require Spotify account authorization or use the Spotify Web API.
+
+## Downloaded libraries cannot be loaded
+
+Version 1.0.1 handles .NET Framework error 0x80131515 by compiling the bundled source if a downloaded helper DLL is blocked. Keep the source files included in the package. This does not remove SmartScreen warnings for an unsigned executable.

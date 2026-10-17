@@ -2,7 +2,22 @@
 $root = $PSScriptRoot
 $tool = Join-Path $root 'WindowsAudio.cs'
 $audioLibrary = Join-Path $root 'WindowsAudio.dll'
-if (Test-Path $audioLibrary) { Add-Type -Path $audioLibrary } else { Add-Type -Path $tool }
+function Test-BlockedAssembly($errorRecord) {
+    $exception = $errorRecord.Exception
+    while ($exception) {
+        if ($exception.HResult -eq -2146233067 -or $exception.Message -match '0x80131515') { return $true }
+        $exception = $exception.InnerException
+    }
+    return $false
+}
+if (Test-Path $audioLibrary) {
+    try { Add-Type -Path $audioLibrary -ErrorAction Stop }
+    catch {
+        if (!(Test-BlockedAssembly $_)) { throw }
+        # Internet-marked DLLs can be blocked by .NET Framework. Compile the bundled source instead.
+        Add-Type -Path $tool -ErrorAction Stop
+    }
+} else { Add-Type -Path $tool }
 $audioRoot = 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\MMDevices\Audio\Render'
 . "$PSScriptRoot\DeviceConfig.ps1"
 function Find-Endpoint($label, $driver) {

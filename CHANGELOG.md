@@ -1,5 +1,10 @@
 ﻿# Changelog
 
+## 1.0.1
+
+- Fixed startup error 0x80131515 when .NET Framework blocks downloaded audio or UI libraries. The app compiles the bundled source when this specific error occurs, without changing Windows security settings.
+- Verified loading with internet-marked DLLs and normal local DLLs.
+
 ## 1.0.0 — Initial public release
 
 - This is my first public release. It includes the features and fixes developed during private testing.
