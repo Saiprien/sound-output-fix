@@ -67,5 +67,5 @@ function Apply-Theme {
     Update-DeviceButtons $script:displayActive $script:displaySwitching
 }
 function Save-AppSettings {
-    @{language=$script:language; theme=$script:theme; resumePlayback=$script:resumePlayback; devices=$script:deviceConfig} | ConvertTo-Json -Depth 5 | Set-Content $script:settingsPath -Encoding UTF8 -ErrorAction Stop
+    @{language=$script:language; theme=$script:theme; resumePlayback=$script:resumePlayback; startMinimized=$script:startMinimized; devices=$script:deviceConfig} | ConvertTo-Json -Depth 5 | Set-Content $script:settingsPath -Encoding UTF8 -ErrorAction Stop
 }

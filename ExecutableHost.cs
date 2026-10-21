@@ -8,7 +8,7 @@ using System.Management.Automation.Runspaces;
 using System.Reflection;
 [assembly: AssemblyTitle("Sound Output Fix")]
 [assembly: AssemblyDescription("Windows audio output switcher for Spotify")]
-[assembly: AssemblyVersion("1.1.0.0")]
+[assembly: AssemblyVersion("1.2.0.0")]
 internal static class ExecutableHost {
     [STAThread]
     private static int Main(string[] args) {
@@ -28,6 +28,7 @@ internal static class ExecutableHost {
                     ps.AddCommand(script);
                     if(smoke) ps.AddParameter("SmokeTest",true);
                     if(args.Contains("--tray")) ps.AddParameter("StartInTray",true);
+                    if(args.Contains("--startup")) ps.AddParameter("StartAtLogin",true);
                     var result=ps.Invoke();
                     // Handled errors (for example an absent optional registry value) also set HadErrors.
                     if(ps.InvocationStateInfo.State == PSInvocationState.Failed)

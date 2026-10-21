@@ -2,9 +2,9 @@
 
 I created Sound Output Fix to work around an issue where Spotify keeps playing through the previous audio output after switching devices in Windows.
 
-**Windows 10/11 · 64-bit · Version 1.1.0**
+**Windows 10/11 · 64-bit · Version 1.2.0**
 
-[Download v1.1.0](https://github.com/Saiprien/sound-output-fix/releases/tag/v1.1.0) · [Report an issue](https://github.com/Saiprien/sound-output-fix/issues)
+[Download v1.2.0](https://github.com/Saiprien/sound-output-fix/releases/tag/v1.2.0) · [Report an issue](https://github.com/Saiprien/sound-output-fix/issues)
 
 ### Default appearance
 
@@ -73,3 +73,11 @@ Sound Output Fix is independent and is not affiliated with Spotify.
 ### Startup after updating
 
 Open the current version, then turn **Start with Windows** off and on in Settings to replace any shortcut pointing to an older folder. When Windows starts, the app runs in the system tray without opening a window. Launching it manually opens the window.
+
+### Startup window preference
+
+In Settings → General, enable **Start with Windows**, then choose **Start in tray at Windows sign-in** to keep the window hidden at login. Disable this second option to show the window at login. Manual launches still open the window. After upgrading, toggle Start with Windows off and on once to update the startup shortcut. Settings displays the running version beside the creator credit.
+
+## Reported issues
+
+A brief stutter during output switching under heavy gaming load and split audio after startup with EarPods connected are under investigation. See [Reported issues](docs/REPORTED_ISSUES.md).

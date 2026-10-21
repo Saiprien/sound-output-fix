@@ -1,7 +1,7 @@
-﻿param([switch]$StartInTray)
+﻿param([switch]$StartInTray, [switch]$StartAtLogin)
 $ErrorActionPreference = 'Stop'
 try {
-    & "$PSScriptRoot\App.ps1" -StartInTray:$StartInTray
+    & "$PSScriptRoot\App.ps1" -StartInTray:$StartInTray -StartAtLogin:$StartAtLogin
 } catch {
     $_ | Out-String | Set-Content (Join-Path $PSScriptRoot 'launch-error.txt')
     Add-Type -AssemblyName System.Windows.Forms

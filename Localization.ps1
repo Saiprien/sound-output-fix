@@ -1,5 +1,6 @@
 ﻿$script:language = 'en'
 $script:theme = 'system'
+$script:startMinimized = $true
 $script:resumePlayback = $false
 $script:settingsPath = Join-Path $root 'settings.json'
 if (Test-Path $script:settingsPath) {
@@ -7,11 +8,13 @@ if (Test-Path $script:settingsPath) {
         $saved = Get-Content $script:settingsPath -Raw | ConvertFrom-Json
         if ($saved.theme -in @('light','dark','system')) { $script:theme = $saved.theme }
         if ($saved.language -in @('en','ro','ru','zh-CN')) { $script:language = $saved.language }
+        if ($saved.startMinimized -is [bool]) { $script:startMinimized = $saved.startMinimized }
         if ($saved.resumePlayback -is [bool]) { $script:resumePlayback = $saved.resumePlayback }
     } catch { }
 }
 $script:translations = @{
     en = @{
+        StartMinimized = 'Start in tray at Windows sign-in'
         ResumePlayback = 'Automatically resume playback after switching devices'
         ResumePlaybackHint = 'Resumes Spotify if it was playing; leaves it paused otherwise.'
         HeadphonesNormal = 'Headphones'
@@ -32,6 +35,7 @@ $script:translations = @{
         Active = 'Active'; Switching = 'Switching'; Speakers = 'SPEAKERS'
     }
     ro = @{
+        StartMinimized = 'Pornește în tray la conectarea în Windows'
         ResumePlayback = 'Reia automat redarea după schimbarea dispozitivului'
         ResumePlaybackHint = 'Reia Spotify dacă reda înainte; altfel, îl lasă pe pauză.'
         HeadphonesNormal = 'Căști'
@@ -53,6 +57,7 @@ $script:translations = @{
     }
 }
 $script:translations.ru = @{
+ StartMinimized='Запускать в трее при входе в Windows'
  ResumePlayback='Автоматически возобновлять воспроизведение при смене устройства'
  ResumePlaybackHint='Возобновляет Spotify, если музыка играла; иначе оставляет на паузе.'
  HeadphonesNormal='Наушники'; SpeakersNormal='Динамики'; Speakers='ДИНАМИКИ'
@@ -68,6 +73,7 @@ $script:translations.ru = @{
  Open='Открыть'; Exit='Выход'; Settings='Настройки'; Language='Язык'; Close='Закрыть'; Active='Активен'; Switching='Переключение'
 }
 $script:translations.'zh-CN' = @{
+ StartMinimized='登录 Windows 时在托盘中启动'
  ResumePlayback='切换设备后自动恢复播放'
  ResumePlaybackHint='若 Spotify 在切换前正在播放，则恢复播放；否则保持暂停。'
  HeadphonesNormal='耳机'; SpeakersNormal='扬声器'; Speakers='扬声器'

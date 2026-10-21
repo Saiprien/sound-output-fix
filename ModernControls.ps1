@@ -12,6 +12,20 @@ if (Test-Path $controlsLibrary) {
 Add-Type -ReferencedAssemblies System.Windows.Forms,System.Drawing @'
 using System.Drawing;
 using System.Windows.Forms;
+public class StartupSwitch : CheckBox {
+    public StartupSwitch() { AutoSize=false; SetStyle(ControlStyles.UserPaint|ControlStyles.AllPaintingInWmPaint|ControlStyles.OptimizedDoubleBuffer,true); }
+    protected override void OnCheckedChanged(System.EventArgs e) { base.OnCheckedChanged(e); Invalidate(); }
+    protected override void OnPaint(PaintEventArgs e) {
+        var g=e.Graphics; g.Clear(BackColor); g.SmoothingMode=System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+        using(var path=new System.Drawing.Drawing2D.GraphicsPath()) {
+            path.AddArc(2,6,20,20,90,180); path.AddArc(26,6,20,20,270,180); path.CloseFigure();
+            using(var brush=new SolidBrush(Checked?Color.FromArgb(55,145,85):Color.FromArgb(105,105,105))) g.FillPath(brush,path);
+        }
+        using(var brush=new SolidBrush(Color.White)) g.FillEllipse(brush,Checked?28:4,8,16,16);
+        TextRenderer.DrawText(g,Text,Font,new Rectangle(51,0,Width-51,Height),ForeColor,TextFormatFlags.VerticalCenter|TextFormatFlags.Left);
+        if(Focused && ShowFocusCues) ControlPaint.DrawFocusRectangle(g,ClientRectangle);
+    }
+}
 public class SmoothIndicatorPanel : Panel {
     public SmoothIndicatorPanel() {
         SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);

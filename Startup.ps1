@@ -25,11 +25,11 @@ function Set-StartupEnabled([bool]$enabled, [string]$shortcutPath = (Get-Startup
         $shortcut = $shell.CreateShortcut($shortcutPath)
         try {
             $shortcut.TargetPath = Join-Path $env:WINDIR 'System32\WindowsPowerShell\v1.0\powershell.exe'
-            $shortcut.Arguments = '-STA -NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -File "' + $launcher + '" -StartInTray'
+            $shortcut.Arguments = '-STA -NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -File "' + $launcher + '" -StartAtLogin'
             $executablePath = Join-Path $root 'SoundOutputFix.exe'
             if (Test-Path -LiteralPath $executablePath) {
                 $shortcut.TargetPath = $executablePath
-                $shortcut.Arguments = '--tray'
+                $shortcut.Arguments = '--startup'
             }
             $shortcut.WindowStyle = 7
             $shortcut.WorkingDirectory = $root

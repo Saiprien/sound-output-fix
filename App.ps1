@@ -1,8 +1,10 @@
-﻿param([switch]$SmokeTest, [string]$PreviewPath, [switch]$StartInTray)
+﻿param([switch]$SmokeTest, [string]$PreviewPath, [switch]$StartInTray, [switch]$StartAtLogin)
 . "$PSScriptRoot\AudioCore.ps1"
 Add-Type -AssemblyName System.Windows.Forms
 Add-Type -AssemblyName System.Drawing
 . "$PSScriptRoot\Localization.ps1"
+$script:appVersion = '1.2.0'
+$launchInTray = $StartInTray -or ($StartAtLogin -and $script:startMinimized)
 . "$PSScriptRoot\Startup.ps1"
 . "$PSScriptRoot\Theme.ps1"
 . "$PSScriptRoot\ModernControls.ps1"
@@ -21,11 +23,12 @@ public static class AudioAppIdentity {
 [System.Windows.Forms.Application]::EnableVisualStyles()
 $mutex = New-Object System.Threading.Mutex($false, 'Local\EarPodsSpotifyAuto')
 if (!$mutex.WaitOne(0)) {
-    if (!$StartInTray) { Set-Content (Join-Path $root 'show.flag') 'show' }
+    if (!$StartAtLogin -and !$StartInTray) { Set-Content (Join-Path $root 'show.flag') 'show' }
     $mutex.Dispose()
     return
 }
 Remove-Item (Join-Path $root 'stop.flag') -ErrorAction SilentlyContinue
+Remove-Item (Join-Path $root 'show.flag') -ErrorAction SilentlyContinue
 $script:worker = $null
 $script:lastConnected = $false
 $script:pendingConnect = $false
@@ -368,7 +371,7 @@ try {
         . "$PSScriptRoot\SmokeTest.ps1"
 
     }
-    else { $timer.Start(); if ($StartInTray) { [void]$form.Handle; $context = New-Object System.Windows.Forms.ApplicationContext($form); try { [System.Windows.Forms.Application]::Run($context) } finally { $context.Dispose() } } else { [System.Windows.Forms.Application]::Run($form) } }
+    else { $timer.Start(); if ($launchInTray) { $context = New-Object System.Windows.Forms.ApplicationContext; $form.Add_FormClosed({ $context.ExitThread() }); try { [System.Windows.Forms.Application]::Run($context) } finally { $context.Dispose() } } else { [System.Windows.Forms.Application]::Run($form) } }
 }
 finally {
     foreach ($button in @($speakersButton,$earButton)) {

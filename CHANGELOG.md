@@ -1,5 +1,15 @@
 ﻿# Changelog
 
+## 1.2.0
+
+- Added an optional tray-only startup preference for Windows sign-in, translated into all four interface languages.
+- Replaced the startup button with a green/gray switch and distinct On/Off positions.
+- Displayed the application version beside the creator credit in Settings.
+- Fixed Windows Forms automatically displaying the startup window when a main form was attached to the application context. Tray startup now uses a context without a main form.
+- Removed stale show requests when starting a new instance. Explicit manual launches can still reopen an existing instance.
+
+
+
 ## 1.1.0
 
 ### Added
